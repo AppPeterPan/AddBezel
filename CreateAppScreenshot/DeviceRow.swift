@@ -23,6 +23,7 @@ struct DeviceRow: View {
     
     func createSnapshots() {
         var snapshotImages = [UIImage]()
+        // 只考慮 iPhone 12 之後的機種 & 較新的 iPad，因此 iPhone 都是 3x，iPad 都是 2x
         let scale = deviceImageName.contains("iPhone") ? 3.0 : 2.0
         guard let deviceImage = UIImage.getBundleResourceImage(name: deviceImageName, directory: .device, scale: scale) else { return }
         var screenshotImages = [UIImage]()
