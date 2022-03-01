@@ -8,24 +8,37 @@
 import SwiftUI
 
 struct DeviceRow: View {
-    let deviceImageName: String
+    let device: Device
     @Binding var pasteboardImageData: Data?
     @Binding var source: Source
-    
+    @AppStorage("recentlyUsedDevceId") var recentlyUsedDevceId: String?
+
     var body: some View {
         Button {
+            recentlyUsedDevceId = device.id
             createSnapshots()
         } label: {
-            let name = deviceImageName.replacingOccurrences(of: ".png", with: "")
-            Text(name)
+            let name = device.imageName.replacingOccurrences(of: ".png", with: "")
+            if recentlyUsedDevceId == device.id {
+                VStack(alignment: .leading) {
+                    Text(name)
+                    Text("recently used")
+                }
+                .font(.title)
+                .foregroundColor(.orange)
+            } else {
+                Text(name)
+
+            }
+        
         }
     }
     
     func createSnapshots() {
         var snapshotImages = [UIImage]()
         // 只考慮 iPhone 12 之後的機種 & 較新的 iPad，因此 iPhone 都是 3x，iPad 都是 2x
-        let scale = deviceImageName.contains("iPhone") ? 3.0 : 2.0
-        guard let deviceImage = UIImage.getBundleResourceImage(name: deviceImageName, directory: .device, scale: scale) else { return }
+        let scale = device.imageName.contains("iPhone") ? 3.0 : 2.0
+        guard let deviceImage = UIImage.getBundleResourceImage(name: device.imageName, directory: .device, scale: scale) else { return }
         var screenshotImages = [UIImage]()
         
         if source == .pasteboard {
@@ -55,6 +68,6 @@ struct DeviceRow: View {
 struct DeviceRow_Previews: PreviewProvider {
     
     static var previews: some View {
-        DeviceRow(deviceImageName: "iPhone 13 - Starlight.png", pasteboardImageData: .constant(nil), source: .constant(.project))
+        DeviceRow(device: Device(imageName: "iPhone 13 - Starlight.png", name: .iPhone13, orientation: .portrait), pasteboardImageData: .constant(nil), source: .constant(.project))
     }
 }

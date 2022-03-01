@@ -7,6 +7,7 @@ struct ContentView: View {
     @State private var orientation = Orientation.portrait
     @State private var source = Source.pasteboard
     @State private var pasteboardImageData: Data?
+    @AppStorage("recentlyUsedDevceId") var recentlyUsedDevceId: String?
     @Environment(\.scenePhase) var scenePhase
     var devices: [Device]
     
@@ -35,7 +36,7 @@ struct ContentView: View {
                                 
                 List {
                     ForEach(filterDevices) { device in
-                        DeviceRow(deviceImageName: device.imageName, pasteboardImageData: $pasteboardImageData, source: $source)
+                        DeviceRow(device: device, pasteboardImageData: $pasteboardImageData, source: $source)
                     }
                 }
                 .listStyle(.insetGrouped)
@@ -59,9 +60,8 @@ struct ContentView: View {
             let deviceNames = DeviceName.getDeviceNamesFromWidthPoint(image.size.width)
             return devices.filter {
                 deviceNames.contains($0.name) && $0.orientation == orientation
-            }.sorted {
-                $0.name.rawValue > $1.name.rawValue
-            }
+            }.sorted(by: sortDevices(device1:device2:))
+    
         case .project:
             let directory = Bundle.main.resourcePath! + "/\(Directory.screenshot.rawValue)"
             let screenshots: [String] = (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? []
@@ -70,9 +70,17 @@ struct ContentView: View {
 
             return devices.filter {
                 $0.name == targetDevice && $0.orientation == orientation
-            }.sorted {
-                $0.name.rawValue > $1.name.rawValue
-            }
+            }.sorted(by: sortDevices(device1:device2:))
+        }
+    }
+    
+    func sortDevices(device1: Device, device2: Device) -> Bool {
+        if recentlyUsedDevceId == device1.id {
+            return true
+        } else if recentlyUsedDevceId == device2.id {
+            return false
+        } else {
+            return device1.name.rawValue > device2.name.rawValue
         }
     }
 }
