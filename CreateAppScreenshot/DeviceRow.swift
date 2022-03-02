@@ -9,8 +9,8 @@ import SwiftUI
 
 struct DeviceRow: View {
     let device: Device
-    @Binding var pasteboardImageData: Data?
-    @Binding var source: Source
+    var pasteboardImageData: Data?
+    var source: Source
     @AppStorage("recentlyUsedDevceId") var recentlyUsedDevceId: String?
 
     var body: some View {
@@ -68,6 +68,6 @@ struct DeviceRow: View {
 struct DeviceRow_Previews: PreviewProvider {
     
     static var previews: some View {
-        DeviceRow(device: Device(imageName: "iPhone 13 - Starlight.png", name: .iPhone13, orientation: .portrait), pasteboardImageData: .constant(nil), source: .constant(.project))
+        DeviceRow(device: Device(imageName: "iPhone 13 - Starlight.png", name: .iPhone13, orientation: .portrait), pasteboardImageData: nil, source: .project)
     }
 }

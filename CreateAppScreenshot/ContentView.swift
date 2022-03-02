@@ -36,7 +36,7 @@ struct ContentView: View {
                                 
                 List {
                     ForEach(filterDevices) { device in
-                        DeviceRow(device: device, pasteboardImageData: $pasteboardImageData, source: $source)
+                        DeviceRow(device: device, pasteboardImageData: pasteboardImageData, source: source)
                     }
                 }
                 .listStyle(.insetGrouped)
