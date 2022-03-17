@@ -36,8 +36,12 @@ struct DeviceRow: View {
     
     func createSnapshots() {
         var snapshotImages = [UIImage]()
-        // 只考慮 iPhone 12 之後的機種 & 較新的 iPad，因此 iPhone 都是 3x，iPad 都是 2x
-        let scale = device.imageName.contains("iPhone") ? 3.0 : 2.0
+        // iPhone 11 之後的機種都是 3x, 只有 iPhone 11 是 2x
+        // 較新的 iPad 都是 2x
+        var scale = device.imageName.contains("iPhone") ? 3.0 : 2.0
+        if device.imageName.contains("iPhone 11 -") {
+            scale = 2.0
+        }
         guard let deviceImage = UIImage.getBundleResourceImage(name: device.imageName, directory: .device, scale: scale) else { return }
         var screenshotImages = [UIImage]()
         

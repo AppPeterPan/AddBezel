@@ -24,13 +24,13 @@ struct SnapshotView: View {
 
 struct SnapshotView_Previews: PreviewProvider {
     static var previews: some View {
-        let screenshotImageData = try! Data(contentsOf: Bundle.main.url(forResource: "Simulator Screen Shot - iPhone 13 - 2022-02-28 at 22.26.31.png", withExtension: nil, subdirectory: Directory.screenshot.rawValue)!)
+        let screenshotImageData = try! Data(contentsOf: Bundle.main.url(forResource: "IMG_5256.PNG", withExtension: nil, subdirectory: Directory.screenshot.rawValue)!)
         let screenshotImage = UIImage(data: screenshotImageData, scale: 3)!
-        let deviceImageData = try! Data(contentsOf: Bundle.main.url(forResource: "iPhone 13 - Starlight.png", withExtension: nil, subdirectory: Directory.device.rawValue)!)
+        let deviceImageData = try! Data(contentsOf: Bundle.main.url(forResource: "iPhone 11 Pro - Portrait.png", withExtension: nil, subdirectory: Directory.device.rawValue)!)
         let deviceImage = UIImage(data: deviceImageData, scale: 3)!
         return SnapshotView(screenshotImage: screenshotImage, deviceImage: deviceImage)
             .scaleEffect(0.8)
-            .previewDevice("iPhone 13")
+            .previewDevice("iPhone 11 Pro")
         
         
     }

@@ -16,6 +16,9 @@ enum DeviceName: String {
     case iPhone12Pro = "iPhone 12 Pro"
     case iPhone12ProMax = "iPhone 12 Pro Max"
     case iPhone12Mini = "iPhone 12 mini"
+    case iPhone11Pro = "iPhone 11 Pro"
+    case iPhone11ProMax = "iPhone 11 Pro Max"
+    case iPhone11 = "iPhone 11"
     case iPad
     case iPadAir = "iPad Air"
     case iPadMini = "iPad mini"
@@ -29,7 +32,9 @@ enum DeviceName: String {
         case 390:
             return [.iPhone13, .iPhone13Pro, .iPhone12, .iPhone12Pro]
         case 375:
-            return [.iPhone13Mini, .iPhone12Mini]
+            return [.iPhone13Mini, .iPhone12Mini, .iPhone11Pro]
+        case 414:
+            return [.iPhone11ProMax, .iPhone11]
         case 820:
             return [.iPadAir]
         case 810:
