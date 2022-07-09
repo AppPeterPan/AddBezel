@@ -65,6 +65,7 @@ struct DeviceRow: View {
             let snapshotImageUrl = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("png")
             try? snapshotImage.pngData()?.write(to: snapshotImageUrl)
         }
+        print(FileManager.default.temporaryDirectory)
         UIPasteboard.general.url = FileManager.default.temporaryDirectory
     }
 }

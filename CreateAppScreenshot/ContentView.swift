@@ -1,6 +1,6 @@
 
 import SwiftUI
-import Algorithms
+//import Algorithms
 import UniformTypeIdentifiers
 
 struct ContentView: View {
@@ -10,6 +10,8 @@ struct ContentView: View {
     @AppStorage("recentlyUsedDevceId") var recentlyUsedDevceId: String?
     @Environment(\.scenePhase) var scenePhase
     var devices: [Device]
+    
+    
     
     init() {
         let directory = Bundle.main.resourcePath! + "/\(Directory.device.rawValue)"
