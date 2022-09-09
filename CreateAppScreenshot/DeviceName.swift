@@ -8,6 +8,10 @@
 import Foundation
 
 enum DeviceName: String {
+    case iPhone14 = "iPhone 14"
+    case iPhone14Plus = "iPhone 14 Plus"
+    case iPhone14Pro = "iPhone 14 Pro"
+    case iPhone14ProMax = "iPhone 14 Pro Max"
     case iPhone13 = "iPhone 13"
     case iPhone13Pro = "iPhone 13 Pro"
     case iPhone13ProMax = "iPhone 13 Pro Max"
@@ -27,10 +31,14 @@ enum DeviceName: String {
     
     static func getDeviceNamesFromWidthPoint(_ width: Double) -> [DeviceName] {
         switch width {
+        case 393:
+            return [.iPhone14Pro]
+        case 430:
+            return [.iPhone14ProMax]
         case 428:
-            return [.iPhone13ProMax, .iPhone12ProMax]
+            return [.iPhone14Plus, .iPhone13ProMax, .iPhone12ProMax]
         case 390:
-            return [.iPhone13, .iPhone13Pro, .iPhone12, .iPhone12Pro]
+            return [.iPhone14, .iPhone13, .iPhone13Pro, .iPhone12, .iPhone12Pro]
         case 375:
             return [.iPhone13Mini, .iPhone12Mini, .iPhone11Pro]
         case 414:

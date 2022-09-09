@@ -34,7 +34,7 @@ struct DeviceRow: View {
         }
     }
     
-    func createSnapshots() {
+    @MainActor func createSnapshots() {
         var snapshotImages = [UIImage]()
         // iPhone 11 之後的機種都是 3x, 只有 iPhone 11 是 2x
         // 較新的 iPad 都是 2x
@@ -60,7 +60,15 @@ struct DeviceRow: View {
             }
         }
         screenshotImages.forEach { screenshotImage in
-            let snapshotImage = SnapshotView(screenshotImage: screenshotImage, deviceImage: deviceImage).snapshotImage(scale: scale)
+            let snapshotView = SnapshotView(screenshotImage: screenshotImage, deviceImage: deviceImage)
+            let snapshotImage: UIImage
+            if #available(iOS 16.0, *) {
+                let render = ImageRenderer(content: snapshotView)
+                render.scale = scale
+                snapshotImage = render.uiImage ?? UIImage()
+            } else {
+                snapshotImage = snapshotView.snapshotImage(scale: scale)
+            }
             snapshotImages.append(snapshotImage)
             let snapshotImageUrl = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("png")
             try? snapshotImage.pngData()?.write(to: snapshotImageUrl)
